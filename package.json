@@ -10,17 +10,16 @@
     "match-sorter": "6.3.1",
     "moment": "2.29.3",
     "nouislider": "^14.6.3",
-    "npm": "^8.5.5",
     "perfect-scrollbar": "1.5.5",
     "postcss": "^8.4.14",
     "prop-types": "15.8.1",
-    "react": ">=16.8.0",
+    "react": "^18.2.0",
     "react-big-calendar": "0.40.2",
     "react-bootstrap-sweetalert": "5.2.0",
     "react-bootstrap-wizard": "0.0.9",
     "react-chartjs-2": "3.0.4",
     "react-datetime": "3.1.1",
-    "react-dom": ">=16.8.0",
+    "react-dom": "^18.2.0",
     "react-jvectormap": "0.0.16",
     "react-notification-alert": "0.0.13",
     "react-router-dom": "^5.2.0",
@@ -32,7 +31,9 @@
   },
   "devDependencies": {
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.9"
+    "gulp-append-prepend": "1.0.9",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14"
   },
   "optionalDependencies": {
     "eslint-plugin-flowtype": "8.0.3",
@@ -49,10 +50,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
   },
   "browserslist": [
     ">0.2%",
