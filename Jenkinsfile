@@ -9,7 +9,7 @@ pipeline {
       steps {
         checkout scm
         container('nodejs') {
-          sh 'npm i --force && npm run build'
+          sh 'npm i --force && CI=false npm run build'
         }
       }
     }
