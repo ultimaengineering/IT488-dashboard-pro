@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: nodejs
-      image: nodejs:18-alpine3.15
+      image: node:18-alpine3.15
       command:
         - cat
       tty: true
