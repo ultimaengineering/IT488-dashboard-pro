@@ -1,22 +1,5 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
-// reactstrap components
 import {
   Button,
   Card,
@@ -32,15 +15,33 @@ import {
   Container,
   Col
 } from "reactstrap";
+import axios from "axios";
 
 const Login = () => {
-  const [state, setState] = React.useState({});
+  const [state, setState] = React.useState({
+    username: "",
+    password: ""
+  });
   React.useEffect(() => {
     document.body.classList.toggle("login-page");
     return function cleanup() {
       document.body.classList.toggle("login-page");
     };
   });
+
+  function submit(username, password) {
+    axios.post("https://it488-inventory.ultimaengineering.io/Users/authenticate", {
+      username: username, password: password
+    }).then((x) => {
+      if(x.status === 200) { // login worked!
+        console.log(x.data)
+      }
+      if (x.status !== 200) {
+        console.log("Should maybe do an error message here");
+      }
+    });
+  }
+
   return (
     <>
       <div className="content">
@@ -64,10 +65,11 @@ const Login = () => {
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      placeholder="Email"
+                      placeholder="Username"
                       type="text"
                       onFocus={(e) => setState({ ...state, emailFocus: true })}
                       onBlur={(e) => setState({ ...state, emailFocus: false })}
+                      onChange={(e) => {setState({ ...state, username: e.target.value })}}
                     />
                   </InputGroup>
                   <InputGroup
@@ -82,9 +84,11 @@ const Login = () => {
                     </InputGroupAddon>
                     <Input
                       placeholder="Password"
-                      type="text"
+                      type="Password"
+
                       onFocus={(e) => setState({ ...state, passFocus: true })}
                       onBlur={(e) => setState({ ...state, passFocus: false })}
+                      onChange={(e) => {setState({ ...state, password: e.target.value })}}
                     />
                   </InputGroup>
                 </CardBody>
@@ -94,7 +98,10 @@ const Login = () => {
                     className="mb-3"
                     color="primary"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={() => {
+                      console.log("state: " + state)
+                      submit(state.username, state.password)
+                    }}
                     size="lg"
                   >
                     Get Started
