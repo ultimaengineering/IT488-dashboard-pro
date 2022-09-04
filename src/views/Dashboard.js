@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import {Redirect} from 'react-router-dom';
 import { Line, Bar } from "react-chartjs-2";
 import { VectorMap } from "react-jvectormap";
 
@@ -43,8 +44,12 @@ const Dashboard = () => {
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
-  return (
-    <>
+
+  if (localStorage.getItem("token") === null) {
+    return (<Redirect to='/auth' />);
+  } else {
+    return (
+        <>
       <div className="content">
         <Row>
           <Col xs="12">
@@ -404,7 +409,8 @@ const Dashboard = () => {
         </Row>
       </div>
     </>
-  );
+    )
+  }
 };
 
 export default Dashboard;
