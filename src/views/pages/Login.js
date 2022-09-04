@@ -38,7 +38,6 @@ const Login = () => {
       username: username, password: password
     }).then((x) => {
       if(x.status === 200) { // login worked!
-        console.log("Login worked, storing token and redirect...")
         localStorage.setItem("token", JSON.stringify(x.data['token']))
         setState({ state, toDashboard: true })
       }
@@ -48,7 +47,7 @@ const Login = () => {
   }
 
   const notify = (place) => {
-    var color = Math.floor(Math.random() * 5 + 1);
+    var color = 4;
     var type;
     switch (color) {
       case 1:
@@ -149,9 +148,7 @@ const Login = () => {
                           block
                           className="mb-3"
                           color="primary"
-                          href="#pablo"
                           onClick={() => {
-                            console.log("state: " + state)
                             submit(state.username, state.password)
                           }}
                           size="lg"
@@ -162,21 +159,10 @@ const Login = () => {
                         <h6>
                           <a
                               className="link footer-link"
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
+                              href="/auth/register"
+                              onClick={(e) => <Redirect to='/admin/dashboard' />}
                           >
                             Create Account
-                          </a>
-                        </h6>
-                      </div>
-                      <div className="pull-right">
-                        <h6>
-                          <a
-                              className="link footer-link"
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                          >
-                            Need Help?
                           </a>
                         </h6>
                       </div>
