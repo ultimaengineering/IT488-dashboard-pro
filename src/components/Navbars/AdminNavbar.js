@@ -47,6 +47,12 @@ const AdminNavbar = (props) => {
       window.removeEventListener("resize", updateColor);
     };
   });
+
+  function sign_out() {
+    localStorage.removeItem("token");
+    window.location.reload(false);
+  }
+
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
     if (window.innerWidth < 993 && collapseOpen) {
@@ -204,7 +210,7 @@ const AdminNavbar = (props) => {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
+                    <DropdownItem className="nav-item" onClick={() => sign_out()}>Log out</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>

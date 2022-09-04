@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
 import { NavLink } from "react-router-dom";
@@ -49,7 +33,7 @@ const AuthNavbar = (props) => {
     >
       <Container fluid>
         <div className="navbar-wrapper">
-          <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+          <NavbarBrand href="/admin/dashboard" onClick={(e) => e.preventDefault()}>
             {props.brandText}
           </NavbarBrand>
         </div>
@@ -69,11 +53,6 @@ const AuthNavbar = (props) => {
         <Collapse isOpen={collapseOpen} navbar>
           <Nav navbar className="ml-auto">
             <NavItem>
-              <NavLink to="/admin/dashboard" className="nav-link text-primary">
-                <i className="tim-icons icon-minimal-left" /> Back to Dashboard
-              </NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink to="/auth/register" className="nav-link">
                 <i className="tim-icons icon-laptop" /> Register
               </NavLink>
@@ -81,16 +60,6 @@ const AuthNavbar = (props) => {
             <NavItem>
               <NavLink to="/auth/login" className="nav-link">
                 <i className="tim-icons icon-single-02" /> Login
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/auth/pricing" className="nav-link">
-                <i className="tim-icons icon-coins" /> Pricing
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/auth/lock-screen" className="nav-link">
-                <i className="tim-icons icon-lock-circle" /> Lock
               </NavLink>
             </NavItem>
           </Nav>
