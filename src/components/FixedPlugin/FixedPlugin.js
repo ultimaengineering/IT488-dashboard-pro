@@ -132,38 +132,6 @@ const FixedPlugin = (props) => {
               <span className="label-switch ml-n3">DARK MODE</span>
             </div>
           </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-pro-react"
-              color="primary"
-              block
-              className="btn-round"
-            >
-              Buy now
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              color="default"
-              block
-              className="btn-round"
-              outline
-              href="https://demos.creative-tim.com/black-dashboard-pro-react/#/documentation/tutorial"
-              target="_blank"
-            >
-              <i className="nc-icon nc-paper" /> Documentation
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-react"
-              color="info"
-              block
-              className="btn-round"
-            >
-              Get free version
-            </Button>
-          </li>
         </ul>
       </div>
     </div>
