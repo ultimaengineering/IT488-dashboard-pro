@@ -1,21 +1,5 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-
+import jwt_decode from "jwt-decode";
 // reactstrap components
 import {
   Button,
@@ -30,10 +14,94 @@ import {
   Row,
   Col
 } from "reactstrap";
+import axios from "axios";
+import NotificationAlert from "react-notification-alert";
+import {Redirect} from "react-router-dom";
 
 const User = () => {
+  const notificationAlertRef = React.useRef(null);
+  var token = localStorage.getItem("token");
+  var decoded = jwt_decode(token);
+  console.log(decoded)
+  const [state, setState] = React.useState({
+    username: decoded["username"],
+    firstName: decoded["firstName"],
+    lastName: decoded["lastName"],
+    password: "",
+    toLogin: false
+  });
+
+  function submit(username, password, firstName, lastName) {
+    var token = localStorage.getItem("token");
+    const config = {
+      headers:{
+        Authorization: "Bearer " + token.replaceAll('"', ''),
+      }
+    };
+    var decoded = jwt_decode(token);
+    axios.put("https://it488-inventory.ultimaengineering.io/Users", {
+      OldUsername: decoded["username"],
+      password: password,
+      username: username,
+      firstName: firstName,
+      lastName: lastName
+    }, config).then((x) => {
+      if(x.status === 200) { // login worked!
+        notify("tc", "Updated.");
+        localStorage.removeItem("token")
+        setState({ state, toLogin: true })
+      }
+    }).catch((exception) => {
+      notify("tc", "Invalid login, double check your username and password and try again.");
+    });
+  }
+
+
+  const notify = (place) => {
+    var color = 4;
+    var type;
+    switch (color) {
+      case 1:
+        type = "primary";
+        break;
+      case 2:
+        type = "success";
+        break;
+      case 3:
+        type = "danger";
+        break;
+      case 4:
+        type = "warning";
+        break;
+      case 5:
+        type = "info";
+        break;
+      default:
+        break;
+    }
+    var options = {};
+    options = {
+      place: place,
+      message: (
+          <div>
+            <div>
+              Invalid login, double check your username and password and try again.
+            </div>
+          </div>
+      ),
+      type: type,
+      icon: "tim-icons icon-bell-55",
+      autoDismiss: 7
+    };
+    notificationAlertRef.current.notificationAlert(options);
+  };
+
+  if (!state.toLogin) {
   return (
     <>
+      <div className="rna-container">
+        <NotificationAlert ref={notificationAlertRef} />
+      </div>
       <div className="content">
         <Row>
           <Col md="8">
@@ -44,94 +112,48 @@ const User = () => {
               <CardBody>
                 <Form>
                   <Row>
-                    <Col className="pr-md-1" md="5">
-                      <FormGroup>
-                        <label>Company (disabled)</label>
-                        <Input
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
                     <Col className="px-md-1" md="3">
                       <FormGroup>
                         <label>Username</label>
-                        <Input defaultValue="michael23" type="text" />
+                        <Input defaultValue={state.username} type="text"
+                               onChange={(e) => {
+                                 setState({...state, username: e.target.value})
+                               }}/>
                       </FormGroup>
                     </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Email address</label>
-                        <Input placeholder="mike@email.com" type="email" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="6">
+                    <Col className="pr-md-1" md="3">
                       <FormGroup>
                         <label>First Name</label>
-                        <Input defaultValue="Mike" type="text" />
+                        <Input defaultValue={state.firstName} type="text" onChange={(e) => {
+                          setState({...state, firstName: e.target.value})
+                        }}/>
                       </FormGroup>
                     </Col>
-                    <Col className="pl-md-1" md="6">
+                    <Col className="pl-md-1" md="3">
                       <FormGroup>
                         <label>Last Name</label>
-                        <Input defaultValue="Andrew" type="text" />
+                        <Input defaultValue={state.lastName} type="text" onChange={(e) => {
+                          setState({...state, lastName: e.target.value})
+                        }}/>
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Address</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="4">
-                      <FormGroup>
-                        <label>City</label>
-                        <Input defaultValue="Mike" type="text" />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="4">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input defaultValue="Andrew" type="text" />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                <Row>
+                  <Col className="pr-md-1" md="3">
+                    <FormGroup>
+                      <label>Password</label>
+                      <Input defaultValue="*************" type="text" onChange={(e) => {
+                        setState({...state, password: e.target.value})
+                      }}/>
+                    </FormGroup>
+                  </Col>
+                </Row>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit">
+                <Button className="btn-fill" color="primary" type="submit" onClick={() => {
+                  submit(state.username, state.password, state.firstName, state.lastName)
+                }}>
                   Save
                 </Button>
               </CardFooter>
@@ -152,35 +174,21 @@ const User = () => {
                       className="avatar"
                       src={require("assets/img/emilyz.jpg")}
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">{state.firstName} {state.lastName}</h5>
                   </a>
-                  <p className="description">Ceo/Co-Founder</p>
                 </div>
                 <div className="card-description">
-                  Do not be scared of the truth because we need to restart the
-                  human foundation in truth And I love you like Kanye loves
-                  Kanye I love Rick Owens’ bed design but the back is...
+                  We are glad to have you be a part of BrickBooks Incorporated!
                 </div>
               </CardBody>
-              <CardFooter>
-                <div className="button-container">
-                  <Button className="btn-icon btn-round" color="facebook">
-                    <i className="fab fa-facebook" />
-                  </Button>
-                  <Button className="btn-icon btn-round" color="twitter">
-                    <i className="fab fa-twitter" />
-                  </Button>
-                  <Button className="btn-icon btn-round" color="google">
-                    <i className="fab fa-google-plus" />
-                  </Button>
-                </div>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
       </div>
     </>
-  );
+  )} else {
+    return <Redirect to='/auth/login' />
+  }
 };
 
 export default User;

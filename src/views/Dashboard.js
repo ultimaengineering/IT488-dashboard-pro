@@ -1,29 +1,14 @@
 import React from "react";
-import classNames from "classnames";
 import {Redirect} from 'react-router-dom';
-import { Line, Bar } from "react-chartjs-2";
-import { VectorMap } from "react-jvectormap";
+import {Bar, Line} from "react-chartjs-2";
+import {VectorMap} from "react-jvectormap";
 
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Table,
-  Row,
-  Col
-} from "reactstrap";
+import {Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
 
 // core components
-import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4
-} from "variables/charts.js";
+import {chartExample2, chartExample3, chartExample4} from "variables/charts.js";
+import SortingTable from "../components/SortingTable/SortingTable";
+import axios from "axios";
 
 var mapData = {
   AU: 760,
@@ -39,12 +24,40 @@ var mapData = {
   US: 2920
 };
 
-const Dashboard = () => {
-  const [bigChartData, setbigChartData] = React.useState("data1");
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
 
+
+
+
+const Dashboard = () => {
+  const [state, setState] = React.useState({
+    productData: []
+  });
+
+  async function getProducts() {
+    var token = localStorage.getItem("token");
+    const config = {
+      headers:{
+        Authorization: "Bearer " + token.replaceAll('"', ''),
+      }
+    };
+    let results = []
+    await axios.get("https://localhost:7091/Products/all", config).then((x) => {// got data now work it!
+      results = x.data.map(e => {
+        return {
+          data: [
+            {text: e["name"]},
+            {text: e["description"]},
+            {text: e["isbn"]},
+            {text: e["inStock"]},
+            {className: e["price"]}
+          ]
+        };
+      });
+    });
+    console.log(results);
+    return results;
+  }
+  console.log(x)
   if (localStorage.getItem("token") === null) {
     return (<Redirect to='/auth' />);
   } else {
@@ -56,78 +69,27 @@ const Dashboard = () => {
             <Card className="card-chart">
               <CardHeader>
                 <Row>
-                  <Col className="text-left" sm="6">
-                    <h5 className="card-category">Total Shipments</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
-                  </Col>
-                  <Col sm="6">
-                    <ButtonGroup
-                      className="btn-group-toggle float-right"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        color="info"
-                        id="0"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data1"
-                        })}
-                        onClick={() => setBgChartData("data1")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Accounts
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-single-02" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="1"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2"
-                        })}
-                        onClick={() => setBgChartData("data2")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Purchases
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-gift-2" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="2"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3"
-                        })}
-                        onClick={() => setBgChartData("data3")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Sessions
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-tap-02" />
-                        </span>
-                      </Button>
-                    </ButtonGroup>
+                  <Col className="mb-5" md="12">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle tag="h4">Current Inventory</CardTitle>
+                      </CardHeader>
+                      <CardBody>
+                        <SortingTable
+                            thead={[
+                              { text: "Name" },
+                              { text: "Description" },
+                              { text: "Isbn" },
+                              { text: "Number in stock" },
+                              { className: "text-center", text: "Cost" }
+                            ]}
+                            tbody={state.productData}
+                        />
+                      </CardBody>
+                    </Card>
                   </Col>
                 </Row>
               </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
-                  />
-                </div>
-              </CardBody>
             </Card>
           </Col>
           <Col lg="3" md="6">
