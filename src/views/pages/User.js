@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import NotificationAlert from "react-notification-alert";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 
 const User = () => {
   const notificationAlertRef = React.useRef(null);
@@ -30,6 +30,12 @@ const User = () => {
     password: "",
     toLogin: false
   });
+
+  const history = useHistory();
+  const routeChange = () =>{
+    let path = `/auth/login`;
+    history.push(path);
+  }
 
   function submit(username, password, firstName, lastName) {
     var token = localStorage.getItem("token");
@@ -49,7 +55,7 @@ const User = () => {
       if(x.status === 200) { // login worked!
         notify("tc", "Updated.");
         localStorage.removeItem("token")
-        setState({ state, toLogin: true })
+        routeChange()
       }
     }).catch((exception) => {
       notify("tc", "Invalid login, double check your username and password and try again.");
