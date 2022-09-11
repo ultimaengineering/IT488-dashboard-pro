@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Redirect} from 'react-router-dom';
 import {Bar, Line} from "react-chartjs-2";
 import {VectorMap} from "react-jvectormap";
@@ -7,7 +7,6 @@ import {Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Tab
 
 // core components
 import {chartExample2, chartExample3, chartExample4} from "variables/charts.js";
-import SortingTable from "../components/SortingTable/SortingTable";
 import axios from "axios";
 import ReactTable from "../components/ReactTable/ReactTable";
 import classNames from "classnames";
@@ -116,7 +115,7 @@ class Dashboard extends React.Component {
 
   render() {
     if (localStorage.getItem("token") === null) {
-      return (<Redirect to='/auth'/>);
+      return (<Redirect to='/auth/login'/>);
     } if (this.state.productData === []) {
       return (<div><h2>Loading</h2></div>)
     }

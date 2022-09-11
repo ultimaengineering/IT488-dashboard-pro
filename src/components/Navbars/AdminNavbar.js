@@ -17,7 +17,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-
+import { useHistory } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -27,7 +27,6 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   Input,
-  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
@@ -50,7 +49,19 @@ const AdminNavbar = (props) => {
 
   function sign_out() {
     localStorage.removeItem("token");
-    window.location.reload(false);
+    routeLogin();
+  }
+
+
+  const history = useHistory();
+  const routeChange = () =>{
+    let path = `/admin/user-profile`;
+    history.push(path);
+  }
+
+  const routeLogin = () =>{
+    let path = `/auth/login`;
+    history.push(path);
   }
 
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
@@ -152,10 +163,7 @@ const AdminNavbar = (props) => {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Profile</DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Settings</DropdownItem>
+                    <DropdownItem className="nav-item" onClick={() => routeChange()}>Profile</DropdownItem>
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
