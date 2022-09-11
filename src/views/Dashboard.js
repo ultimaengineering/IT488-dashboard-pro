@@ -46,10 +46,10 @@ class Dashboard extends React.Component {
     axios.get("https://it488-inventory.ultimaengineering.io/Products/all", config)
         .then((x) => {// got data now work it!
       return x.data.map(data => {
-          let key = data["name"]
+          let key = data["id"]
           console.log(data)
           return {
-            id: data["name"],
+            id: data["id"],
             name: data["name"],
             description: data["description"],
             isbn: data["isbn"],
