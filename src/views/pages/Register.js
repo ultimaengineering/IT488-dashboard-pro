@@ -255,7 +255,7 @@ const Register = () => {
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button
+                      <Button disabled={!state.password}
                           className="btn-round"
                           color="primary"
                           onClick={() => {
