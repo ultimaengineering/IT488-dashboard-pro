@@ -113,11 +113,15 @@ const Register = () => {
                       <i className="tim-icons icon-wifi"/>
                     </div>
                     <div className="description">
-                      <h3 className="info-title">Marketing</h3>
-                      <p className="description">
-                        We've created the marketing campaign of the website. It was
-                        a very interesting collaboration.
-                      </p>
+                      <ins className="adsbygoogle"
+                           style="display:block"
+                           data-ad-client="ca-pub-6408011637167689"
+                           data-ad-slot="9628080294"
+                           data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+                      <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                      </script>
                     </div>
                   </div>
                   <div className="info-area info-horizontal">

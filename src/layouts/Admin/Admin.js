@@ -162,8 +162,8 @@ const Admin = (props) => {
         routes={routes}
         activeColor={activeColor}
         logo={{
-          outterLink: "https://www.creative-tim.com/",
-          text: "Creative Tim",
+          outterLink: "https://488-ui.ultimaengineering.io/admin/dashboard",
+          text: "BrickBooks",
           imgSrc: logo
         }}
         closeSidebar={closeSidebar}
