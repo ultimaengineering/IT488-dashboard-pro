@@ -122,7 +122,7 @@ class Register extends React.Component {
                              data-ad-client='ca-pub-6408011637167689'
                              data-ad-slot='9628080294'
                              data-ad-format='auto'
-                             ata-full-width-responsive='true'
+                             data-full-width-responsive='true'
                         />
                       </div>
                     </div>
