@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import useAnalyticsEventTracker from 'views/components/useAnalyticsEventTracker';
 // reactstrap components
 import {
   Button,
@@ -23,6 +24,7 @@ import {
 import axios from "axios";
 import NotificationAlert from "react-notification-alert";
 import {Redirect} from "react-router-dom";
+import ReactGA from "react-ga";
 
 class Register extends React.Component {
   constructor(props) {
@@ -42,8 +44,17 @@ class Register extends React.Component {
   };
 })*/
 
+  useAnalyticsEventTracker(category="Blog category") {
+    {
+      const eventTracker = (action = "test action", label = "test label") => {
+        ReactGA.event({category, action, label});
+      }
+      return eventTracker();
+    }
+  }
 
   componentDidMount() {
+    this.useAnalyticsEventTracker('Register Page');
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 

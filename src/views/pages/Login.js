@@ -1,6 +1,7 @@
 import React from "react";
 import {Redirect} from 'react-router-dom';
 import classnames from "classnames";
+import ReactGA from "react-ga";
 import {
   Button,
   Card,
@@ -32,6 +33,13 @@ const Login = () => {
       document.body.classList.toggle("login-page");
     };
   });
+
+  const useAnalyticsEventTracker = (category="Blog category") => {
+    const eventTracker = (action = "test action", label = "test label") => {
+      ReactGA.event({category, action, label});
+    }
+    return eventTracker;
+  }
 
   function submit(username, password) {
     axios.post("https://it488-inventory.ultimaengineering.io/Users/authenticate", {
@@ -85,6 +93,7 @@ const Login = () => {
     notificationAlertRef.current.notificationAlert(options);
   };
 
+  const gaEventTracker = useAnalyticsEventTracker('Login page');
   if (!state.toDashboard) {
     return (
         <>

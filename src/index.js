@@ -9,8 +9,11 @@ import "assets/css/nucleo-icons.css";
 import "react-notification-alert/dist/animate.css";
 import "assets/scss/black-dashboard-pro-react.scss?v=1.2.0";
 import "assets/demo/demo.css";
+import ReactGA from 'react-ga';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const TRACKING_ID = "UA-73826242-3"; // OUR_TRACKING_ID
+ReactGA.initialize(TRACKING_ID);
 
 root.render(
   <BrowserRouter>

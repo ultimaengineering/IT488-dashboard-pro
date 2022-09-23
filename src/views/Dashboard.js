@@ -10,6 +10,7 @@ import {chartExample2, chartExample3, chartExample4} from "variables/charts.js";
 import axios from "axios";
 import ReactTable from "../components/ReactTable/ReactTable";
 import classNames from "classnames";
+import ReactGA from "react-ga";
 
 var mapData = {
   AU: 760,
@@ -25,17 +26,23 @@ var mapData = {
   US: 2920
 };
 
-
-
-
-
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { productData: [] }
   }
 
+  useAnalyticsEventTracker(category="Blog category") {
+    {
+      const eventTracker = (action = "test action", label = "test label") => {
+        ReactGA.event({category, action, label});
+      }
+      return eventTracker();
+    }
+  }
+
   componentDidMount() {
+    const gaEventTracker = this.useAnalyticsEventTracker('Dashboard');
     var token = localStorage.getItem("token");
     const config = {
       headers:{
