@@ -43,81 +43,86 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     const gaEventTracker = this.useAnalyticsEventTracker('Dashboard');
-    var token = localStorage.getItem("token");
-    const config = {
-      headers:{
-        Authorization: "Bearer " + token.replaceAll('"', ''),
-      }
-    };
-    axios.get("https://it488-inventory.ultimaengineering.io/Products/all", config)
-        .then((x) => {// got data now work it!
-      return x.data.map(data => {
-          let key = data["id"]
-          console.log(data)
-          return {
-            id: data["id"],
-            name: data["name"],
-            description: data["description"],
-            isbn: data["isbn"],
-            inStock: data["inStock"],
-            price: "" + data["price"],
-            actions: (
-                // we've added some custom button actions
-                <div className="actions-right">
-                  {/* use this button to add a edit kind of action */}
-                  <Button
-                      onClick={() => {
-                        let obj = data.find((o) => o.id === key);
-                        alert(
-                            "You've clicked EDIT button on \n{ \nName: " +
-                            obj.name +
-                            ", \nposition: " +
-                            obj.position +
-                            ", \noffice: " +
-                            obj.office +
-                            ", \nage: " +
-                            obj.age +
-                            "\n}."
-                        );
-                      }}
-                      color="warning"
-                      size="sm"
-                      className={classNames("btn-icon btn-link like", {
-                        "btn-neutral": key < 5
-                      })}
-                  >
-                    <i className="tim-icons icon-pencil" />
-                  </Button>{" "}
-                  {/* use this button to remove the data row */}
-                  <Button
-                      onClick={() => {
-                        var newdata = data;
-                        newdata.find((o, i) => {
-                          if (o.id === key) {
-                            // here you should add some custom code so you can delete the data
-                            // from this component and from your server as well
-                            data.splice(i, 1);
-                            console.log(data);
-                            return true;
-                          }
-                          return false;
-                        });
-                       //setData(newdata);
-                      }}
-                      color="danger"
-                      size="sm"
-                      className={classNames("btn-icon btn-link like", {
-                        "btn-neutral": key < 5
-                      })}
-                  >
-                    <i className="tim-icons icon-simple-remove" />
-                  </Button>{" "}
-                </div>)
-      }})
-    }).then((x) => {
-      console.log("Updating State.")
-      this.setState({productData: x})
-    })
+    try {
+      var token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token.replaceAll('"', ''),
+        }
+      };
+      axios.get("https://it488-inventory.ultimaengineering.io/Products/all", config)
+          .then((x) => {// got data now work it!
+            return x.data.map(data => {
+              let key = data["id"]
+              console.log(data)
+              return {
+                id: data["id"],
+                name: data["name"],
+                description: data["description"],
+                isbn: data["isbn"],
+                inStock: data["inStock"],
+                price: "" + data["price"],
+                actions: (
+                    // we've added some custom button actions
+                    <div className="actions-right">
+                      {/* use this button to add a edit kind of action */}
+                      <Button
+                          onClick={() => {
+                            let obj = data.find((o) => o.id === key);
+                            alert(
+                                "You've clicked EDIT button on \n{ \nName: " +
+                                obj.name +
+                                ", \nposition: " +
+                                obj.position +
+                                ", \noffice: " +
+                                obj.office +
+                                ", \nage: " +
+                                obj.age +
+                                "\n}."
+                            );
+                          }}
+                          color="warning"
+                          size="sm"
+                          className={classNames("btn-icon btn-link like", {
+                            "btn-neutral": key < 5
+                          })}
+                      >
+                        <i className="tim-icons icon-pencil"/>
+                      </Button>{" "}
+                      {/* use this button to remove the data row */}
+                      <Button
+                          onClick={() => {
+                            var newdata = data;
+                            newdata.find((o, i) => {
+                              if (o.id === key) {
+                                // here you should add some custom code so you can delete the data
+                                // from this component and from your server as well
+                                data.splice(i, 1);
+                                console.log(data);
+                                return true;
+                              }
+                              return false;
+                            });
+                            //setData(newdata);
+                          }}
+                          color="danger"
+                          size="sm"
+                          className={classNames("btn-icon btn-link like", {
+                            "btn-neutral": key < 5
+                          })}
+                      >
+                        <i className="tim-icons icon-simple-remove"/>
+                      </Button>{" "}
+                    </div>)
+              }
+            })
+          }).then((x) => {
+        console.log("Updating State.")
+        this.setState({productData: x})
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render() {

@@ -95,6 +95,8 @@ const Login = () => {
 
   const gaEventTracker = useAnalyticsEventTracker('Login page');
   if (!state.toDashboard) {
+    console.log("dashboard state" + state.toDashboard)
+    console.log("In case for default page load")
     return (
         <>
           <div className="rna-container">
