@@ -13,6 +13,8 @@ import classNames from "classnames";
 import ReactGA from "react-ga";
 import TotalInventoryItems from "../components/TotalInventoryItems/TotalInventoryItems"
 import TodaysSalesCount from "../components/TodaysSales/TodaysSalesCount";
+import TotalUsers from "../components/TotalUsers/TotalUsers";
+import UsersAddedToday from "../components/UsersAddedToday/UsersAddedToday";
 
 var mapData = {
   AU: 760,
@@ -212,48 +214,10 @@ class Dashboard extends React.Component {
                   </Card>
                 </Col>
                 <Col lg="3" md="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col xs="5">
-                          <div className="info-icon text-center icon-primary">
-                            <i className="tim-icons icon-shape-star"/>
-                          </div>
-                        </Col>
-                        <Col xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Users added today</p>
-                            <CardTitle tag="h3">+45k</CardTitle>
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                    <CardFooter>
-                      <hr/>
-                      <div className="stats">
-                        <i className="tim-icons icon-sound-wave"/> Newly Added Users
-                      </div>
-                    </CardFooter>
-                  </Card>
+                  <UsersAddedToday />
                 </Col>
                 <Col lg="3" md="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col xs="5">
-                          <div className="info-icon text-center icon-success">
-                            <i className="tim-icons icon-single-02"/>
-                          </div>
-                        </Col>
-                        <Col xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Users</p>
-                            <CardTitle tag="h3">150,000</CardTitle>
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
+                <TotalUsers />
                 </Col>
                 <Col lg="3" md="6">
                   <Card className="card-stats">
@@ -311,133 +275,6 @@ class Dashboard extends React.Component {
                             options={chartExample3.options}
                         />
                       </div>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-              <Row>
-                <Col lg="12">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle tag="h4">Global Sales by Top Locations</CardTitle>
-                      <p className="card-category">All products that were shipped</p>
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col md="6">
-                          <Table responsive>
-                            <tbody>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/US.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>USA</td>
-                              <td className="text-right">2.920</td>
-                              <td className="text-right">53.23%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/DE.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>Germany</td>
-                              <td className="text-right">1.300</td>
-                              <td className="text-right">20.43%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/AU.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>Australia</td>
-                              <td className="text-right">760</td>
-                              <td className="text-right">10.35%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/GB.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>United Kingdom</td>
-                              <td className="text-right">690</td>
-                              <td className="text-right">7.87%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/RO.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>Romania</td>
-                              <td className="text-right">600</td>
-                              <td className="text-right">5.94%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div className="flag">
-                                  <img
-                                      alt="..."
-                                      src={require("assets/img/BR.png")}
-                                  />
-                                </div>
-                              </td>
-                              <td>Brasil</td>
-                              <td className="text-right">550</td>
-                              <td className="text-right">4.34%</td>
-                            </tr>
-                            </tbody>
-                          </Table>
-                        </Col>
-                        <Col className="ml-auto mr-auto" md="6">
-                          <VectorMap
-                              map={"world_mill"}
-                              backgroundColor="transparent"
-                              zoomOnScroll={false}
-                              containerStyle={{
-                                width: "100%",
-                                height: "300px"
-                              }}
-                              regionStyle={{
-                                initial: {
-                                  fill: "#e4e4e4",
-                                  "fill-opacity": 0.9,
-                                  stroke: "none",
-                                  "stroke-width": 0,
-                                  "stroke-opacity": 0
-                                }
-                              }}
-                              series={{
-                                regions: [
-                                  {
-                                    values: mapData,
-                                    scale: ["#AAAAAA", "#444444"],
-                                    normalizeFunction: "polynomial"
-                                  }
-                                ]
-                              }}
-                          />
-                        </Col>
-                      </Row>
                     </CardBody>
                   </Card>
                 </Col>
