@@ -1,4 +1,5 @@
 import React from "react";
+import {useState} from 'react';
 import classnames from "classnames";
 // reactstrap components
 import {
@@ -32,6 +33,26 @@ const Register = () => {
     password: "",
     toLogin: false
   });
+
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handlePasswordChange=(e)=> {
+    setPasswordError('');
+    setPassword(e.target.value);
+  }
+
+  const handleFormSubmit=(e)=> {
+    e.preventDefault();
+
+    if(password!=='') {
+
+    }
+    else {
+      setPasswordError('Password Required');
+    }
+  }
+
   const notificationAlertRef = React.useRef(null);
   React.useEffect(() => {
     document.body.classList.toggle("register-page");
@@ -237,11 +258,13 @@ const Register = () => {
                               type="Password"
                               onFocus={(e) => setState({...state, passFocus: true})}
                               onBlur={(e) => setState({...state, passFocus: false})}
-                              onChange={(e) => {
+                              onChange = {handlePasswordChange} value = {password}
+                                      /* {(e) => {
                                 setState({...state, password: e.target.value})
-                              }}
+                                }} */
                           />
                         </InputGroup>
+                        <p><font color="red">{passwordError}</font></p>
                         <FormGroup check className="text-left">
                           <Label check>
                             <Input type="checkbox"/>
@@ -255,12 +278,13 @@ const Register = () => {
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button disabled={!state.password}
+                      <Button
                           className="btn-round"
                           color="primary"
-                          onClick={() => {
+                          onClick = {handleFormSubmit}
+                          /* onClick={() => {
                             submit(state.username, state.password, state.firstName, state.lastName)
-                          }}
+                          }} */
                           size="lg"
                       >
                         Create Account
