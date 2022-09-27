@@ -37,19 +37,56 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const [firstname, setFirstName] = useState('');
+  const [firstnameError, setFirstNameError] = useState('');
+
+  const [lastname, setLastName] = useState('');
+  const [lastnameError, setLastNameError] = useState('');
+
+  const [username, setUsername] = useState('');
+  const [usernameError, setUserNameError] = useState('');
+
   const handlePasswordChange=(e)=> {
     setPasswordError('');
     setPassword(e.target.value);
   }
 
+  const handleFirstNameChange=(e)=> {
+    setFirstNameError('');
+    setFirstName(e.target.value);
+  }
+
+  const handleLastNameChange=(e)=> {
+    setLastNameError('');
+    setLastName(e.target.value);
+  }
+
+  const handleUsernameChange=(e)=> {
+    setUserNameError('');
+    setUsername(e.target.value);
+  }
+
   const handleFormSubmit=(e)=> {
     e.preventDefault();
 
-    if(password!=='') {
-
+    if(!firstname) {
+      setFirstNameError('First Name Required');
     }
-    else {
+
+    if(!lastname) {
+      setLastNameError('Last Name Required');
+    }
+
+    if(!username) {
+      setUserNameError('Username Required');
+    }
+    
+    if(!password) {
       setPasswordError('Password Required');
+    }
+
+    else {
+      submit(state.username, state.password, state.firstName, state.lastName);
     }
   }
 
@@ -192,12 +229,14 @@ const Register = () => {
                               type="text"
                               onFocus={(e) => setState({...state, nameFocus: true})}
                               onBlur={(e) => setState({...state, nameFocus: false})}
-                              onChange={(e) => {
+                              onChange = {handleFirstNameChange} value = {firstname}
+                              onInput={(e) => {
                                 setState({...state, firstName: e.target.value})
                               }}
                           />
 
                         </InputGroup>
+                        <p><font color="red">{firstnameError}</font></p>
                         <InputGroup
                             className={classnames({
                               "input-group-focus": state.nameFocus
@@ -213,12 +252,14 @@ const Register = () => {
                               type="text"
                               onFocus={(e) => setState({...state, nameFocus: true})}
                               onBlur={(e) => setState({...state, nameFocus: false})}
-                              onChange={(e) => {
+                              onChange = {handleLastNameChange} value = {lastname}
+                              onInput={(e) => {
                                 setState({...state, lastName: e.target.value})
                                 console.log("lastname " + state.lastName)
                               }}
                           />
                         </InputGroup>
+                        <p><font color="red">{lastnameError}</font></p>
                         <InputGroup
                             className={classnames({
                               "input-group-focus": state.emailFocus
@@ -238,11 +279,13 @@ const Register = () => {
                               onBlur={(e) =>
                                   setState({...state, emailFocus: false})
                               }
-                              onChange={(e) => {
+                              onChange = {handleUsernameChange} value = {username}
+                              onInput={(e) => {
                                 setState({...state, username: e.target.value})
                               }}
                           />
                         </InputGroup>
+                        <p><font color="red">{usernameError}</font></p>
                         <InputGroup
                             className={classnames({
                               "input-group-focus": state.passFocus
@@ -259,9 +302,9 @@ const Register = () => {
                               onFocus={(e) => setState({...state, passFocus: true})}
                               onBlur={(e) => setState({...state, passFocus: false})}
                               onChange = {handlePasswordChange} value = {password}
-                                      /* {(e) => {
+                              onInput={(e) => {
                                 setState({...state, password: e.target.value})
-                                }} */
+                                }}
                           />
                         </InputGroup>
                         <p><font color="red">{passwordError}</font></p>
@@ -282,9 +325,9 @@ const Register = () => {
                           className="btn-round"
                           color="primary"
                           onClick = {handleFormSubmit}
-                          /* onClick={() => {
-                            submit(state.username, state.password, state.firstName, state.lastName)
-                          }} */
+                          onInput={() => {
+                            this.submit(this.state.username, this.state.password, this.state.firstName, this.state.lastName)
+                          }}
                           size="lg"
                       >
                         Create Account
