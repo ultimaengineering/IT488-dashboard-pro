@@ -21,7 +21,6 @@ class TodaysSalesView extends Component {
             axios.get("https://it488-inventory.ultimaengineering.io/Sales/all", config)
                 .then((x) => {// got data now work it!
                     return x.data.map(data => {
-                        console.log(data)
                         return {
                             id: data["id"],
                             productId: data["productId"],

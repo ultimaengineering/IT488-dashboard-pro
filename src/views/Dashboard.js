@@ -1,7 +1,6 @@
 import React from "react";
 import {Redirect} from 'react-router-dom';
 import {Bar, Line} from "react-chartjs-2";
-import {VectorMap} from "react-jvectormap";
 
 import {Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
 
@@ -15,20 +14,7 @@ import TotalInventoryItems from "../components/TotalInventoryItems/TotalInventor
 import TodaysSalesCount from "../components/TodaysSales/TodaysSalesCount";
 import TotalUsers from "../components/TotalUsers/TotalUsers";
 import UsersAddedToday from "../components/UsersAddedToday/UsersAddedToday";
-
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920
-};
+import TotalShipments from "../components/TotalShipments/TotalShipments";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -242,22 +228,7 @@ class Dashboard extends React.Component {
                   </Card>
                 </Col>
                 <Col lg="6">
-                  <Card className="card-chart">
-                    <CardHeader>
-                      <h5 className="card-category">Total Shipments</h5>
-                      <CardTitle tag="h3">
-                        <i className="tim-icons icon-bell-55 text-primary"/> 763,215
-                      </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                      <div className="chart-area">
-                        <Line
-                            data={chartExample2.data}
-                            options={chartExample2.options}
-                        />
-                      </div>
-                    </CardBody>
-                  </Card>
+                <TotalShipments />
                 </Col>
                 <Col lg="6">
                   <Card className="card-chart">
