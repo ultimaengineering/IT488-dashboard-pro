@@ -15,6 +15,7 @@ import TodaysSalesCount from "../components/TodaysSales/TodaysSalesCount";
 import TotalUsers from "../components/TotalUsers/TotalUsers";
 import UsersAddedToday from "../components/UsersAddedToday/UsersAddedToday";
 import TotalShipments from "../components/TotalShipments/TotalShipments";
+import MonthlySales from "../components/MonthlySales/MonthlySales";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -231,23 +232,7 @@ class Dashboard extends React.Component {
                 <TotalShipments />
                 </Col>
                 <Col lg="6">
-                  <Card className="card-chart">
-                    <CardHeader>
-                      <h5 className="card-category">Daily Sales</h5>
-                      <CardTitle tag="h3">
-                        <i className="tim-icons icon-delivery-fast text-info"/>{" "}
-                        3,500€
-                      </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                      <div className="chart-area">
-                        <Bar
-                            data={chartExample3.data}
-                            options={chartExample3.options}
-                        />
-                      </div>
-                    </CardBody>
-                  </Card>
+                  <MonthlySales />
                 </Col>
               </Row>
             </div>

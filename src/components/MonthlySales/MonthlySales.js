@@ -1,13 +1,13 @@
-import axios from "axios";
-import {Card, CardBody, CardHeader, CardTitle} from "reactstrap";
+import {Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row} from "reactstrap";
 import {Component} from "react";
-import {Line} from "react-chartjs-2";
+import axios from "axios";
+import {Bar, Line} from "react-chartjs-2";
 import {chartExample3} from "../../variables/charts";
 
-class TotalShipments extends Component {
+class MonthlySales extends Component {
     constructor(props) {
         super(props);
-        this.state = {chart: {}, total_count: 0}
+        this.state = {chart: {}, sales: 0}
     }
 
     componentDidMount() {
@@ -20,7 +20,6 @@ class TotalShipments extends Component {
             };
             axios.get("https://it488-inventory.ultimaengineering.io/Sales/summary", config)
                 .then((x) => {// got data now work it!
-                    console.log("I am here!!!")
                     return x.data.map(data => {
                         console.log(data)
                         return {
@@ -31,8 +30,8 @@ class TotalShipments extends Component {
                         }
                     })
                 }).then((x) => {
-                console.log("Updating state in total shipments")
-                let total_count = x.reduce((partialSum, a) => partialSum + a.items_sold, 0);
+                let total_sales = x.reduce((partialSum, a) => partialSum + a.sales, 0);
+                console.log("Updating State.")
                 let chart = {
                     data: (canvas) => {
                         let ctx = canvas.getContext("2d");
@@ -45,13 +44,13 @@ class TotalShipments extends Component {
                         })
                         console.log(label_data)
                         let data = x.map(x => {
-                            return x.items_sold
+                            return x.sales
                         })
                         return {
                             labels: label_data,
                             datasets: [
                                 {
-                                    label: "Items sold per month",
+                                    label: "Monthly Sales",
                                     fill: true,
                                     backgroundColor: gradientStroke,
                                     borderColor: "#1f8ef1",
@@ -73,7 +72,7 @@ class TotalShipments extends Component {
                     //options: this.chart_1_2_3_options
                 };
                 this.setState({chart: chart})
-                this.setState({total_count: total_count})
+                this.setState({sales: total_sales})
             })
         } catch (e) {
             console.log(e)
@@ -83,9 +82,10 @@ class TotalShipments extends Component {
     render() {
         return (<Card className="card-chart">
             <CardHeader>
-                <h5 className="card-category">Total Shipments</h5>
+                <h5 className="card-category">Monthly Sales</h5>
                 <CardTitle tag="h3">
-                    <i className="tim-icons icon-bell-55 text-primary"/> {this.state.total_count}
+                    <i className="tim-icons icon-delivery-fast text-info"/>{" "}
+                    Quarterly Sales: ${this.state.sales}
                 </CardTitle>
             </CardHeader>
             <CardBody>
@@ -100,4 +100,4 @@ class TotalShipments extends Component {
     }
 }
 
-export default TotalShipments;
+export default MonthlySales;
