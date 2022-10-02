@@ -5,7 +5,6 @@ import {Bar, Line} from "react-chartjs-2";
 import {Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
 
 // core components
-import {chartExample2, chartExample3, chartExample4} from "variables/charts.js";
 import axios from "axios";
 import ReactTable from "../components/ReactTable/ReactTable";
 import classNames from "classnames";
