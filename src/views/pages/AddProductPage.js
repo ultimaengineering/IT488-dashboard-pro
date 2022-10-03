@@ -27,7 +27,7 @@ class AddProductPage extends React.Component {
             ISBN:"",
             InStock: "",
             Price: "",
-            toLogin: false }
+            toDashboard: false }
     }
 
     useAnalyticsEventTracker(category="Blog category") {
@@ -45,24 +45,23 @@ class AddProductPage extends React.Component {
     }
 
     submit(Name, Description, ISBN, InStock, Price) {
-        let post_body = {
+        var token = localStorage.getItem("token");
+        const config = {
+            headers:{
+                Authorization: "Bearer " + token.replaceAll('"', ''),
+            }
+        };
+
+        axios.post("https://it488-inventory.ultimaengineering.io/Products", {
             description: Description,
             inStock: InStock,
             isbn: ISBN,
             name: Name,
             price: Price
-        }
-
-        var token = localStorage.getItem("token");
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token.replaceAll('"', ''),
-            }
-        };
-
-        axios.post("https://it488-inventory.ultimaengineering.io/Products", post_body, config).then((x) => {
+        }, config).then((x) => {
             if(x.status === 200) {
-                console.log("Account created, redirect")
+                console.log("Product added redirecting")
+                this.setState({ toDashboard: true })
             }
         }).catch((exception) => {
             console.log(exception)
@@ -70,8 +69,8 @@ class AddProductPage extends React.Component {
     }
 
     render() {
-        if (this.state.toLogin) {
-            return <Redirect to='/auth/login' />
+        if (this.state.toDashboard) {
+            return <Redirect to='/admin/dashboard' />
         } else {
             return (
                 <>
