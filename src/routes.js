@@ -8,6 +8,7 @@ import Dashboard from "views/Dashboard.js";
 import Register from "views/pages/Register.js";
 import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
+import AddProductPage from "./views/pages/AddProductPage";
 
 const routes = [
   {
@@ -50,6 +51,15 @@ const routes = [
         mini: "UP",
         rtlMini: "شع",
         component: User,
+        layout: "/admin"
+      },
+      {
+        path: "/addProduct",
+        name: "Add Product",
+        rtlName: "ملف تعريفي للمستخدم",
+        mini: "UP",
+        rtlMini: "شع",
+        component: AddProductPage,
         layout: "/admin"
       }
     ]

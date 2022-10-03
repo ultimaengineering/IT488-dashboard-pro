@@ -1,6 +1,5 @@
 import React from "react";
 import {Redirect} from 'react-router-dom';
-import {Bar, Line} from "react-chartjs-2";
 
 import {Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Row, Table} from "reactstrap";
 
@@ -15,6 +14,7 @@ import TotalUsers from "../components/TotalUsers/TotalUsers";
 import UsersAddedToday from "../components/UsersAddedToday/UsersAddedToday";
 import TotalShipments from "../components/TotalShipments/TotalShipments";
 import MonthlySales from "../components/MonthlySales/MonthlySales";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -132,9 +132,16 @@ class Dashboard extends React.Component {
                       <Row>
                         <Col className="mb-5" md="12">
                           <Card>
+                              <Row>
                             <CardHeader>
                               <CardTitle tag="h4">Current Inventory</CardTitle>
                             </CardHeader>
+                                  <Col xs="7">
+                                  </Col>
+                              <Col xs="3">
+                                  <Button className="-striped -highlight" style={{disply:'flex', justifyContent:'right'}}>Add Product</Button>
+                              </Col>
+                              </Row>
                             <CardBody>
                               <ReactTable  filterable
                                            resizable={true}
