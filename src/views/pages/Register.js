@@ -137,32 +137,8 @@ class Register extends React.Component {
                         />
                       </div>
                     </div>
-                    <div className="info-area info-horizontal">
-                      <div className="icon icon-primary">
-                        <i className="tim-icons icon-triangle-right-17"/>
-                      </div>
-                      <div className="description">
-                        <h3 className="info-title">Fully Coded in HTML5</h3>
-                        <p className="description">
-                          We've developed the website with HTML5 and CSS3. The client
-                          has access to the code using GitHub.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="info-area info-horizontal">
-                      <div className="icon icon-info">
-                        <i className="tim-icons icon-trophy"/>
-                      </div>
-                      <div className="description">
-                        <h3 className="info-title">Built Audience</h3>
-                        <p className="description">
-                          There is also a Fully Customizable CMS Admin Dashboard for
-                          this product.
-                        </p>
-                      </div>
-                    </div>
                   </Col>
-                  <Col className="mr-auto" md="7">
+                  <Col className="mr-auto" md="10">
                     <Card className="card-register card-white">
                       <CardHeader>
                         <CardImg
